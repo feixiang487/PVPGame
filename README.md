@@ -37,17 +37,14 @@ PVPGame 是一个用于 Minecraft 服务器的多人竞技场插件。它允许�
 
 1. **列出所有竞技场**：
    ```
-
    /pvpgame list
    ```
 2. **加入竞技场 1**：
    ```
-
    /pvpgame join 1
    ```
 3. **离开当前竞技场**：
    ```
-
    /pvpgame leave
    ```
 
