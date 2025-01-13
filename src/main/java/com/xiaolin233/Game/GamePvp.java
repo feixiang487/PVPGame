@@ -1,0 +1,38 @@
+package com.xiaolin233.Game;
+
+import com.xiaolin233.Arena.Arena;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+import java.util.HashMap;
+import java.util.UUID;
+
+public class GamePvp {
+    private Arena arena;
+    private HashMap<Player, Integer> playerDeaths;
+    public GamePvp(Arena arena){
+        this.arena = arena;
+        this.playerDeaths = new HashMap<>();
+    }
+
+    public void start(){
+        for (UUID player : arena.getPlayers()) {
+            playerDeaths.put(Bukkit.getPlayer(player), 0);
+        }
+    }
+    public void addDeath(Player player){
+        playerDeaths.put(player, playerDeaths.get(player) + 1);
+        int p = playerDeaths.get(player);
+        if (p == 3){
+            player.sendMessage("你已经阵亡，正在传送到观察台");
+            playerDeaths.remove(player);
+            //TODO 传送到观察台
+        }
+        if(playerDeaths.size() == 1){
+            for (Player player1 : playerDeaths.keySet()) {
+                player1.sendMessage("玩家" + player1.getName() + "取得胜利");
+            }
+            arena.reset();
+        }
+    }
+}

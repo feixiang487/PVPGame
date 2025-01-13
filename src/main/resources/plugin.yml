@@ -1,0 +1,6 @@
+name: PVPGame
+main: com.xiaolin233.PVPGame
+version: 1.0.0
+api-version: 1.12
+commands:
+  pvpgame:
