@@ -22,15 +22,17 @@ public class CountDown extends BukkitRunnable {
     public void run() {
         if(countdown == 0){
             //游戏开始
-            Arena.start();
             cancel();
+            Arena.start();
+            return;
         }
         if(countdown % 30 == 0 || countdown <= 10){
-            player.sendMessage("游戏开始还有：" + countdown+"秒");
+            Manager.isPlayerArena(player).sendMessage("游戏开始倒计时: " + countdown);
         }
         if(!Manager.isPlayer(player)){
-            player.sendMessage("玩家不在竞技场，游戏暂停");
+            Manager.isPlayerArena(player).sendMessage("玩家: " + player.getName() + " 退出了游戏");
             cancel();
+            return;
         }
         countdown--;
     }

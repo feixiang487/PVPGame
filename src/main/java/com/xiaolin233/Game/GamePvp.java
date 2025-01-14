@@ -1,6 +1,7 @@
 package com.xiaolin233.Game;
 
 import com.xiaolin233.Arena.Arena;
+import com.xiaolin233.Manager.Manager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -18,6 +19,7 @@ public class GamePvp {
     public void start(){
         for (UUID player : arena.getPlayers()) {
             playerDeaths.put(Bukkit.getPlayer(player), 0);
+            arena.getCareer(player).start(Bukkit.getPlayer(player));
         }
     }
     public void addDeath(Player player){
@@ -30,9 +32,10 @@ public class GamePvp {
         }
         if(playerDeaths.size() == 1){
             for (Player player1 : playerDeaths.keySet()) {
-                player1.sendMessage("玩家" + player1.getName() + "取得胜利");
+                Manager.isPlayerArena(player1).sendMessage("恭喜" + player1.getName() + "获得胜利");
+                playerDeaths.clear();
+                arena.reset();
             }
-            arena.reset();
         }
     }
 }

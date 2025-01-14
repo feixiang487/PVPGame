@@ -1,6 +1,7 @@
 package com.xiaolin233.GameCommand;
 
 import com.xiaolin233.Config.Config;
+import com.xiaolin233.GameGui.GameCareerGui;
 import com.xiaolin233.Gamestatus.GameStatus;
 import com.xiaolin233.Manager.Manager;
 import com.xiaolin233.PVPGame;
@@ -41,6 +42,11 @@ public class GameCommand implements CommandExecutor {
                     Manager.isPlayerArena(player).removePlayer(player.getUniqueId());
                 }else{
                     player.sendMessage("你没有加入任何竞技场");
+                }
+            }
+            if(strings.length == 1 && strings[0].equals("career")){
+                if(Manager.isPlayer(player) && Manager.isPlayerArena(player).getArenaStatus() == GameStatus.waiting){
+                    new GameCareerGui(player);
                 }
             }
         }
