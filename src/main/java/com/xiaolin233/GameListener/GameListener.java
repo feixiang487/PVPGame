@@ -1,10 +1,10 @@
 package com.xiaolin233.GameListener;
 
 import com.xiaolin233.Caneer.Career;
-import com.xiaolin233.Caneer.Kits;
 import com.xiaolin233.Gamestatus.GameStatus;
 import com.xiaolin233.Manager.Manager;
-import org.bukkit.entity.HumanEntity;
+import com.xiaolin233.Team.Team;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,14 +29,27 @@ public class GameListener implements Listener {
             entity.teleport(Manager.isPlayerArena(entity).getArenaLocation());
         }
     }
+    //点击这个界面
     @EventHandler
     public void onPlayerInventoryClick(InventoryClickEvent event){
         Player whoClicked = (Player) event.getWhoClicked();
-        if(Manager.isPlayer(whoClicked) && Manager.isPlayerArena(whoClicked).getArenaStatus() == GameStatus.waiting){
-            Career career = Career.valueOf(event.getCurrentItem().getItemMeta().getLocalizedName());
+        if(event.getInventory().getName().equals(ChatColor.RED + "职业选择")) {
+            if (Manager.isPlayer(whoClicked) && Manager.isPlayerArena(whoClicked).getArenaStatus() == GameStatus.waiting) {
+                Career career = Career.valueOf(event.getCurrentItem().getItemMeta().getLocalizedName());
                 Manager.isPlayerArena(whoClicked).setCareer(whoClicked.getUniqueId(), career);
-                whoClicked.sendMessage("你选择了"+career.getName()+"职业");
-            event.setCancelled(true);
+                whoClicked.sendMessage("你选择了" + career.getName() + "职业");
+                event.getWhoClicked().closeInventory();
+                event.setCancelled(true);
+            }
+        }
+        if(event.getInventory().getName().equals(ChatColor.RED + "队伍选择")) {
+            if (Manager.isPlayer(whoClicked) && Manager.isPlayerArena(whoClicked).getArenaStatus() == GameStatus.waiting) {
+                Team team = Team.valueOf(event.getCurrentItem().getItemMeta().getLocalizedName());
+                Manager.isPlayerArena(whoClicked).setTeam(whoClicked, team);
+                whoClicked.sendMessage("你选择了" + team.getName() + "队伍");
+                event.getWhoClicked().closeInventory();
+                event.setCancelled(true);
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ import com.xiaolin233.GameGui.GameCareerGui;
 import com.xiaolin233.Gamestatus.GameStatus;
 import com.xiaolin233.Manager.Manager;
 import com.xiaolin233.PVPGame;
+import com.xiaolin233.Team.TeamGui;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -47,6 +48,15 @@ public class GameCommand implements CommandExecutor {
             if(strings.length == 1 && strings[0].equals("career")){
                 if(Manager.isPlayer(player) && Manager.isPlayerArena(player).getArenaStatus() == GameStatus.waiting){
                     new GameCareerGui(player);
+                }else{
+                    player.sendMessage("你不在竞技场等待状态");
+                }
+            }
+            if(strings.length == 1 && strings[0].equals("team")){
+                if(Manager.isPlayer(player) && Manager.isPlayerArena(player).getArenaStatus() == GameStatus.waiting){
+                    new TeamGui(player);
+                }else{
+                    player.sendMessage("你不在竞技场等待状态");
                 }
             }
         }

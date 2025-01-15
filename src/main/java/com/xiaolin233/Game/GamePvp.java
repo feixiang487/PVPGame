@@ -18,6 +18,9 @@ public class GamePvp {
 
     public void start(){
         for (UUID player : arena.getPlayers()) {
+            if(arena.getTeam().get(Bukkit.getPlayer(player)) == null){
+                arena.aisetTeam(Bukkit.getPlayer(player));
+            }
             playerDeaths.put(Bukkit.getPlayer(player), 0);
             arena.getCareer(player).start(Bukkit.getPlayer(player));
         }
@@ -28,7 +31,7 @@ public class GamePvp {
         if (p == 3){
             player.sendMessage("你已经阵亡，正在传送到观察台");
             playerDeaths.remove(player);
-            //TODO 传送到观察台
+            //TODO 传送到观察台，这个部分暂时不开发
         }
         if(playerDeaths.size() == 1){
             for (Player player1 : playerDeaths.keySet()) {

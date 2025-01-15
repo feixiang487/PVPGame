@@ -37,7 +37,7 @@ public class Manager {
         }
         return false;
     }
-    //获取玩家在哪个竞技场
+    //获取玩家在哪个竞技场,是否在竞技场
     public static Arena isPlayerArena(Player player){
         for (Arena arena : arenas) {
             if(arena.getPlayers().contains(player.getUniqueId())){
